@@ -89,6 +89,7 @@ points = PackedVector3Array(-0.5, 0, -0.5, -0.5, 0.25, -0.5, 0.5, 0, -0.5, -0.5,
 points = PackedVector3Array(-0.5, 0, -0.5, -0.5, 0.02, -0.5, 0.5, 0, -0.5, -0.5, 0, 0.5, -0.5, 0.02, 0.5, 0.5, 0.02, -0.5, 0.5, 0, 0.5, 0.5, 0.02, 0.5)
 
 [node name="Tiles" type="Node3D" unique_id=1830087335]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
 
 [node name="BridgePillarWide" type="MeshInstance3D" parent="." unique_id=645993016]
 visible = false
@@ -355,11 +356,9 @@ visible = false
 mesh = ExtResource("63_e5tbm")
 
 [node name="RoadStraightHalf" type="MeshInstance3D" parent="." unique_id=730642395]
-visible = false
 mesh = ExtResource("64_h5d14")
 
 [node name="RoadStraight" type="MeshInstance3D" parent="." unique_id=1137643396]
-visible = false
 mesh = ExtResource("65_u2x1e")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="RoadStraight" unique_id=556074825]
@@ -382,11 +381,14 @@ visible = false
 mesh = ExtResource("68_moda8")
 
 [node name="TileHigh" type="MeshInstance3D" parent="." unique_id=615601539]
+visible = false
 mesh = ExtResource("69_qfsly")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TileHigh" unique_id=649180871]
+visible = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TileHigh/StaticBody3D" unique_id=1635704757]
+visible = false
 shape = SubResource("ConvexPolygonShape3D_d5eiu")
 
 [node name="TileLow" type="MeshInstance3D" parent="." unique_id=433540853]
