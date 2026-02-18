@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Drift Souls"
-run/main_scene="uid://du57ilgym8get"
+run/main_scene="uid://bxs7o2g4ee34b"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
