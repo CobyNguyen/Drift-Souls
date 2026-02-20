@@ -70,7 +70,7 @@ func _physics_process(delta: float) -> void:
 		apply_central_force(right * steer_input * 1200.0)
 		
 		var forward_speed = linear_velocity.dot(forward)
-		linear_velocity = forward * forward_speed + linear_velocity.project(right)
+		linear_velocity += right * steer_input *.5
 	
 		drift_charge += delta * linear_velocity.length()
 	else:
@@ -78,7 +78,9 @@ func _physics_process(delta: float) -> void:
 		wheel_rr.wheel_friction_slip = NORMAL_GRIP
 		
 		if drift_charge > 2.0:
-			apply_central_impulse(transform.basis.z * -drift_charge * 5.0)
+			var forward = -transform.basis.z.normalized()
+			var boost = forward * drift_charge * 5.0
+			apply_central_impulse(-transform.basis.z * drift_charge * 5.0)
 		drift_charge	= 0.0
 
 	# CAMERA
