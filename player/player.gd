@@ -1,11 +1,11 @@
 extends VehicleBody3D
 
-const MAX_STEER = 0.8
+const MAX_STEER = 1.0
 const ENGINE_POWER = 300
 
-const DRIFT_GRIP = 1.0
-const NORMAL_GRIP = 2.1
-const DRIFT_STEER_MULT = 1.1
+const DRIFT_GRIP = 1.5
+const NORMAL_GRIP = 2.0
+const DRIFT_STEER_MULT = 1.01
 
 var look_at
 var aiming := false
@@ -29,6 +29,8 @@ const PITCH_MAX := deg_to_rad(30)
 # Wheels (change names if yours differ)
 @onready var wheel_rl = $BackLeft
 @onready var wheel_rr = $BackRight
+@onready var wheel_fl = $FrontLeft
+@onready var wheel_fr = $FrontRight
 
 
 func _ready() -> void:
@@ -37,13 +39,16 @@ func _ready() -> void:
 	print(wheel_rl)
 	print(wheel_rr)
 
+func is_grounded() -> bool:
+	return wheel_rl.is_in_contact() or wheel_rr.is_in_contact() or wheel_fl.is_in_contact() or wheel_fr.is_in_contact()
+
 func _physics_process(delta: float) -> void:
 
 	var steer_input = Input.get_axis("ui_right","ui_left")
 	var accel_input = Input.get_axis("ui_down","ui_up")
 
 	# Detect drift
-	drifting = Input.is_action_pressed("drift") and linear_velocity.length() > 5.0
+	drifting = Input.is_action_pressed("drift") and linear_velocity.length() > 5.0 and is_grounded()
 	
 	# Detect RMB for aiming
 	aiming = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
@@ -54,7 +59,8 @@ func _physics_process(delta: float) -> void:
 	if drifting:
 		steer_amount *= DRIFT_STEER_MULT
 	
-	steering = move_toward(steering, steer_amount, delta * 2.5)
+	var steer_speed = 4.0 if drifting else 2.5
+	steering = move_toward(steering, steer_amount, delta * steer_speed)
 
 	# Engine
 	engine_force = accel_input * ENGINE_POWER
@@ -66,27 +72,42 @@ func _physics_process(delta: float) -> void:
 		
 		#Strafing
 		var right = transform.basis.x.normalized()
-		var forward = -transform.basis.z.normalized()
-		apply_central_force(right * steer_input * 1200.0)
-		
-		var forward_speed = linear_velocity.dot(forward)
-		linear_velocity = forward * forward_speed + linear_velocity.project(right)
+		apply_central_force(right * steer_input * 900.0)
+
+		#var forward = -transform.basis.z.normalized()
+
+		var sideways_speed = linear_velocity.dot(transform.basis.x)
+		drift_charge += delta * abs(sideways_speed)
+		drift_charge = min(drift_charge, 30) #limiting maximum drift charge/time
 	
-		drift_charge += delta * linear_velocity.length()
 	else:
 		wheel_rl.wheel_friction_slip = NORMAL_GRIP
 		wheel_rr.wheel_friction_slip = NORMAL_GRIP
-	
-		if drift_charge > 2.0:
-			# Compute input direction
-			var input_dir = Vector3(steer_input, 0, -accel_input)
-			if input_dir.length() > 0:
-				var world_dir = transform.basis * input_dir
-				world_dir.y = 0
-				world_dir = world_dir.normalized()
-				apply_central_impulse(world_dir * drift_charge * 5.0)
 
-	drift_charge = 0.0
+	if Input.is_action_just_released("drift") and drift_charge > 1.0:
+
+		var boost_dir = linear_velocity.normalized()
+
+		var steer_vec = transform.basis.x * steer_input * 0.5
+		boost_dir += steer_vec
+		boost_dir = boost_dir.normalized()
+
+		# If car is almost stopped, fallback to forward
+		if boost_dir.length() < 1.0:
+			boost_dir = -transform.basis.z
+
+		boost_dir.y = 0
+		boost_dir = boost_dir.normalized()
+		
+		# Remove sideways velocity for clean boost
+		var forward = -transform.basis.z.normalized()
+		var forward_speed = linear_velocity.dot(forward)
+		linear_velocity = forward * forward_speed
+		apply_central_impulse(boost_dir * drift_charge * 10.0)
+
+		print("BOOST!", drift_charge)
+
+		drift_charge = 0.0
 
 	# CAMERA
 

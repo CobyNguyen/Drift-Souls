@@ -476,8 +476,12 @@ script = ExtResource("1_4flbx")
 [node name="FrontLeft" type="VehicleWheel3D" parent="." unique_id=1571095558]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1172163, -0.37410316, 1.9440771)
 use_as_steering = true
+wheel_roll_influence = 0.15
 wheel_friction_slip = 2.0
-suspension_stiffness = 80.0
+suspension_travel = 0.25
+suspension_stiffness = 70.0
+damping_compression = 4.0
+damping_relaxation = 6.0
 
 [node name="Circle" type="MeshInstance3D" parent="FrontLeft" unique_id=1968289896]
 mesh = SubResource("ArrayMesh_legmr")
@@ -485,8 +489,12 @@ mesh = SubResource("ArrayMesh_legmr")
 [node name="FrontRight" type="VehicleWheel3D" parent="." unique_id=1884991490]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1286938, -0.37410903, 1.9439007)
 use_as_steering = true
+wheel_roll_influence = 0.15
 wheel_friction_slip = 2.0
-suspension_stiffness = 80.0
+suspension_travel = 0.25
+suspension_stiffness = 70.0
+damping_compression = 4.0
+damping_relaxation = 6.0
 
 [node name="Circle_001" type="MeshInstance3D" parent="FrontRight" unique_id=1461707016]
 mesh = SubResource("ArrayMesh_tipoj")
@@ -494,8 +502,13 @@ mesh = SubResource("ArrayMesh_tipoj")
 [node name="BackRight" type="VehicleWheel3D" parent="." unique_id=1486907551]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1287143, -0.36201057, -1.644844)
 use_as_traction = true
-wheel_friction_slip = 1.5
+wheel_roll_influence = 0.15
+wheel_rest_length = 0.35
+wheel_friction_slip = 2.2
+suspension_travel = 0.25
 suspension_stiffness = 60.0
+damping_compression = 4.0
+damping_relaxation = 6.0
 
 [node name="Circle_002" type="MeshInstance3D" parent="BackRight" unique_id=522476680]
 mesh = SubResource("ArrayMesh_iuifp")
@@ -503,8 +516,13 @@ mesh = SubResource("ArrayMesh_iuifp")
 [node name="BackLeft" type="VehicleWheel3D" parent="." unique_id=2117008292]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1304264, -0.36212263, -1.644887)
 use_as_traction = true
-wheel_friction_slip = 1.5
+wheel_roll_influence = 0.15
+wheel_rest_length = 0.35
+wheel_friction_slip = 2.2
+suspension_travel = 0.25
 suspension_stiffness = 60.0
+damping_compression = 4.0
+damping_relaxation = 6.0
 
 [node name="Circle_003" type="MeshInstance3D" parent="BackLeft" unique_id=1100383979]
 mesh = SubResource("ArrayMesh_pg8yh")
