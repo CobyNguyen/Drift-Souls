@@ -66,22 +66,27 @@ func _physics_process(delta: float) -> void:
 		
 		#Strafing
 		var right = transform.basis.x.normalized()
-		var forward = transform.basis.z.normalized()
+		var forward = -transform.basis.z.normalized()
 		apply_central_force(right * steer_input * 1200.0)
 		
 		var forward_speed = linear_velocity.dot(forward)
-		linear_velocity += right * steer_input *.5
+		linear_velocity = forward * forward_speed + linear_velocity.project(right)
 	
 		drift_charge += delta * linear_velocity.length()
 	else:
 		wheel_rl.wheel_friction_slip = NORMAL_GRIP
 		wheel_rr.wheel_friction_slip = NORMAL_GRIP
-		
+	
 		if drift_charge > 2.0:
-			var forward = -transform.basis.z.normalized()
-			var boost = forward * drift_charge * 5.0
-			apply_central_impulse(-transform.basis.z * drift_charge * 5.0)
-		drift_charge	= 0.0
+			# Compute input direction
+			var input_dir = Vector3(steer_input, 0, -accel_input)
+			if input_dir.length() > 0:
+				var world_dir = transform.basis * input_dir
+				world_dir.y = 0
+				world_dir = world_dir.normalized()
+				apply_central_impulse(world_dir * drift_charge * 5.0)
+
+	drift_charge = 0.0
 
 	# CAMERA
 
