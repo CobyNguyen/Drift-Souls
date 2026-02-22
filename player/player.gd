@@ -5,7 +5,7 @@ const ENGINE_POWER = 300
 
 const DRIFT_GRIP = 1.5
 const NORMAL_GRIP = 2.0
-const DRIFT_STEER_MULT = 1.01
+const DRIFT_STEER_MULT = 1.1
 
 var look_at
 var aiming := false
@@ -72,7 +72,7 @@ func _physics_process(delta: float) -> void:
 		
 		#Strafing
 		var right = transform.basis.x.normalized()
-		apply_central_force(right * steer_input * 900.0)
+		apply_central_force(right * steer_input * 1200.0)
 
 		#var forward = -transform.basis.z.normalized()
 
@@ -103,7 +103,7 @@ func _physics_process(delta: float) -> void:
 		var forward = -transform.basis.z.normalized()
 		var forward_speed = linear_velocity.dot(forward)
 		linear_velocity = forward * forward_speed
-		apply_central_impulse(boost_dir * drift_charge * 10.0)
+		apply_central_impulse(boost_dir * drift_charge * 50.0)
 
 		print("BOOST!", drift_charge)
 
