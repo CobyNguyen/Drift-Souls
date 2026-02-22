@@ -1,0 +1,36 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://dkp7v4r0k0opp"
+path="res://.godot/imported/din1451alt G.ttf-67dca4856f3f8622932ed5ef1fc10003.fontdata"
+
+[deps]
+
+source_file="res://menu/fonts/alte-din-1451-mittelschrift/din1451alt G.ttf"
+dest_files=["res://.godot/imported/din1451alt G.ttf-67dca4856f3f8622932ed5ef1fc10003.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+disable_embedded_bitmaps=true
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+modulate_color_glyphs=false
+hinting=1
+subpixel_positioning=4
+keep_rounding_remainders=true
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}
