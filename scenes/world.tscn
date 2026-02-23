@@ -66,9 +66,6 @@ smooth_faces = true
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="CSGPolygon3D/StaticBody3D" unique_id=2137323349]
 shape = SubResource("ConcavePolygonShape3D_nnsk1")
 
-[node name="Player" parent="." unique_id=743681268 instance=ExtResource("2_fj7yv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.429044, -11.800723, -3.2369957)
-
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1210973085]
 transform = Transform3D(-239.58107, 0, 0, 0, 11.512927, 0, 0, 0, 2934.0737, -78.59733, -18.180847, 0)
 size = Vector3(12.513184, 1, 1)
@@ -78,3 +75,6 @@ material = SubResource("StandardMaterial3D_nnsk1")
 
 [node name="CSGBakedCollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/StaticBody3D" unique_id=2140672502]
 shape = SubResource("ConcavePolygonShape3D_rwgxs")
+
+[node name="Player" parent="." unique_id=743681268 instance=ExtResource("2_fj7yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57.73871, -11.800722, 16.381931)

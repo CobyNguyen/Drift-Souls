@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://50wwyak644rl"]
+
+[ext_resource type="PackedScene" uid="uid://dd83o0dx2s4sj" path="res://assets/Toyota Corolla.blend" id="1_symyh"]
+
+[node name="Node3D" type="Node3D" unique_id=1874883242]
+
+[node name="Toyota Corolla" parent="." unique_id=917265179 instance=ExtResource("1_symyh")]

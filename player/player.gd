@@ -3,9 +3,15 @@ extends VehicleBody3D
 const MAX_STEER = 1.0
 const ENGINE_POWER = 300
 
-const DRIFT_GRIP = 1.5
+const DRIFT_GRIP = 1.2
 const NORMAL_GRIP = 2.0
-const DRIFT_STEER_MULT = 1.1
+const DRIFT_STEER_MULT = 1.6
+const TURN_STRENGTH = 400.0
+const DRIFT_TURN_STRENGTH = 800
+
+const MOUSE_SENS := 0.003
+const PITCH_MIN := deg_to_rad(-45)
+const PITCH_MAX := deg_to_rad(30)
 
 var look_at
 var aiming := false
@@ -16,9 +22,7 @@ var cam_yaw := 0.0
 var cam_pitch := -10.0
 
 
-const MOUSE_SENS := 0.003
-const PITCH_MIN := deg_to_rad(-45)
-const PITCH_MAX := deg_to_rad(30)
+
 
 @onready var camera_pivot = $CameraPivot
 @onready var camera_3d = $CameraPivot/Camera3D
@@ -69,12 +73,10 @@ func _physics_process(delta: float) -> void:
 	crosshair.visible = aiming
 	
 	# Steering
-	var steer_amount = steer_input * MAX_STEER
-	#if drifting:
-		#steer_amount *= DRIFT_STEER_MULT
-	#if is_grounded():
-		#var turn_force = steer_input * speed * 15.0
-		#apply_torque(Vector3.UP * turn_force)
+	var speed_factor = clamp(speed / 20.0, 0.3, 1.0)
+	var steer_amount = steer_input * MAX_STEER * speed_factor
+
+	
 	var steer_speed = 4.0 if drifting else 2.5
 	steering = move_toward(steering, steer_amount, delta * steer_speed)
 
@@ -84,31 +86,37 @@ func _physics_process(delta: float) -> void:
 	engine_force = accel_input * ENGINE_POWER * accel_multiplier
 
 
-	var turning = abs(steer_input) > 0.1
+	# Remove sideways velocity for clean boost
+	var forward = -transform.basis.z.normalized()
+	var forward_speed = linear_velocity.dot(forward)
+	
+	var right = transform.basis.x.normalized()
+	if is_grounded(): 
+		apply_central_force(right * steer_input * TURN_STRENGTH)
 
-	if turning and not drifting:
-		wheel_fl.wheel_friction_slip = 1.6
-		wheel_fr.wheel_friction_slip = 1.6
-	else:
-		wheel_fl.wheel_friction_slip = NORMAL_GRIP
-		wheel_fr.wheel_friction_slip = NORMAL_GRIP
+
+
 	# Drift grip
 	if drifting:
 		wheel_rl.wheel_friction_slip = DRIFT_GRIP
 		wheel_rr.wheel_friction_slip = DRIFT_GRIP
+		wheel_fl.wheel_friction_slip = DRIFT_GRIP
+		wheel_fr.wheel_friction_slip = DRIFT_GRIP
+		apply_central_force(right * steer_input * DRIFT_TURN_STRENGTH)
 		
 		#Strafing
-		var right = transform.basis.x.normalized()
-		apply_central_force(right * steer_input * 1200.0)
-
-		#var forward = -transform.basis.z.normalized()
+		#apply_central_force(forward * steer_input * 1200.0)
 		
 		engine_force *= 1.3
 		var sideways_speed = linear_velocity.dot(transform.basis.x)
 		drift_charge += delta * abs(sideways_speed)
 		drift_charge = min(drift_charge, 30) #limiting maximum drift charge/time
-	
+		
+		
+		
 	else:
+		wheel_fl.wheel_friction_slip = NORMAL_GRIP
+		wheel_fr.wheel_friction_slip = NORMAL_GRIP
 		wheel_rl.wheel_friction_slip = NORMAL_GRIP
 		wheel_rr.wheel_friction_slip = NORMAL_GRIP
 
@@ -127,12 +135,10 @@ func _physics_process(delta: float) -> void:
 		boost_dir.y = 0
 		boost_dir = boost_dir.normalized()
 		
-		# Remove sideways velocity for clean boost
-		var forward = -transform.basis.z.normalized()
-		var forward_speed = linear_velocity.dot(forward)
-		linear_velocity = forward * forward_speed
-		#apply_central_impulse(boost_dir * drift_charge * 50.0)
-		apply_central_impulse(boost_dir * drift_charge * (35.0 + speed))
+		
+		#linear_velocity = forward * forward_speed
+		##apply_central_impulse(boost_dir * drift_charge * 50.0)
+		#apply_central_impulse(boost_dir * drift_charge * (35.0 + speed))
 
 		print("BOOST!", drift_charge)
 
