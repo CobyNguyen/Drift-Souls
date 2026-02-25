@@ -12,6 +12,7 @@ var crosshair
 var crosshair_default_pos
 var speed_bar
 var boost_bar
+var look_at
 
 # Wheel references
 var wheel_fl
@@ -26,22 +27,25 @@ var aiming := false
 var cam_yaw := 0.0
 var cam_pitch := -10.0
 var using_reverse := false
-#var look_at
 
-# Constants
-const MAX_STEER = 1.0
-const ENGINE_POWER = 300
-const DRIFT_GRIP = 1.6
-const NORMAL_GRIP = 2.0
-const TURN_STRENGTH = 500.0
-const DRIFT_TURN_STRENGTH = 800
-const MOUSE_SENS := 0.003
-const PITCH_MIN := deg_to_rad(-45)
-const PITCH_MAX := deg_to_rad(30)
+# vehicle_data
+var BOOST_MULT = 35.0
+var TOP_SPEED = 40
+var MAX_STEER = 1.0
+var ENGINE_POWER = 300
+var DRIFT_GRIP = 1.6
+var NORMAL_GRIP = 2.0
+var PITCH_MAX
+var PITCH_MIN
+var TURN_STRENGTH = 500.0
+var DRIFT_TURN_STRENGTH = 800
+var MOUSE_SENS = .003
+
+
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-
+	look_at = global_position
 	# --- Get vehicle dynamically ---
 	vehicle = get_node(vehicle_node_path)
 	if vehicle == null:
@@ -49,10 +53,25 @@ func _ready():
 		return
 
 	# --- Wheels ---
-	wheel_fl = vehicle.get_node("wheel_fl") as VehicleWheel3D
-	wheel_fr = vehicle.get_node("wheel_fr") as VehicleWheel3D
-	wheel_rl = vehicle.get_node("wheel_rl") as VehicleWheel3D
-	wheel_rr = vehicle.get_node("wheel_rr") as VehicleWheel3D
+	wheel_fl = vehicle.get_node("FrontLeft") as VehicleWheel3D
+	wheel_fr = vehicle.get_node("FrontRight") as VehicleWheel3D
+	wheel_rl = vehicle.get_node("BackLeft") as VehicleWheel3D
+	wheel_rr = vehicle.get_node("BackRight") as VehicleWheel3D
+	# Fetch vehicle data
+	if vehicle.vehicle_data != null:
+		var data = vehicle.vehicle_data
+		MAX_STEER = data.max_steer
+		ENGINE_POWER = data.engine_power
+		DRIFT_GRIP = data.drift_grip
+		NORMAL_GRIP = data.normal_grip
+		TURN_STRENGTH = data.turn_strength
+		DRIFT_TURN_STRENGTH = data.drift_turn_strength
+		TOP_SPEED = data.top_speed
+		BOOST_MULT = data.boost_multiplier
+		MOUSE_SENS = data.mouse_sens
+		PITCH_MAX = data.pitch_max
+		PITCH_MIN = data.pitch_min
+
 
 	# --- Camera & UI ---
 	camera_pivot = vehicle.get_node("CameraPivot")
@@ -62,8 +81,8 @@ func _ready():
 	crosshair_default_pos = crosshair.position
 	speed_bar = camera_pivot.get_node("CanvasLayer/Control/SpeedBar")
 	boost_bar = camera_pivot.get_node("CanvasLayer/Control/BoostBar")
-	#look_at = vehicle.global_transform.affine_inverse() * camera_pivot.global_transform
 	crosshair.visible = false
+	
 func is_grounded() -> bool:
 	return wheel_fl.is_in_contact() or wheel_fr.is_in_contact() or wheel_rl.is_in_contact() or wheel_rr.is_in_contact()
 
@@ -110,7 +129,8 @@ func _physics_process(delta: float) -> void:
 
 	if is_grounded():
 		vehicle.apply_central_force(right * steer_input * TURN_STRENGTH)
-
+	
+	# FIX THIS
 	if drifting:
 		for wheel in [wheel_fl, wheel_fr, wheel_rl, wheel_rr]:
 			wheel.wheel_friction_slip = DRIFT_GRIP
@@ -143,26 +163,38 @@ func _physics_process(delta: float) -> void:
 	if aiming:
 		var car_yaw = vehicle.transform.basis.get_euler().y
 		var base_basis = Basis(Vector3.UP, car_yaw)
+		
+		# Apply freelook offsets
 		var offset_basis = Basis()
 		offset_basis = offset_basis.rotated(Vector3.UP, -cam_yaw)
 		offset_basis = offset_basis.rotated(Vector3.RIGHT, -cam_pitch)
 		camera_pivot.basis = base_basis * offset_basis
 
-		# Crosshair movement
+		# Crosshair moves relative to its original node position
 		var max_offset = 150.0
 		var x_offset = clamp(cam_yaw / deg_to_rad(120) * max_offset, -max_offset, max_offset)
 		var y_offset = clamp(cam_pitch / deg_to_rad(45) * max_offset, -max_offset, max_offset)
 		var target_pos = crosshair_default_pos + Vector2(x_offset, -y_offset)
 		crosshair.position = crosshair.position.lerp(target_pos, 0.2)
 	else:
+		# Return crosshair to node's original position
 		crosshair.position = crosshair.position.lerp(crosshair_default_pos, 0.2)
+
+		# Return freelook angles
 		cam_yaw = lerp(cam_yaw, 0.0, delta * 8.0)
 		cam_pitch = lerp(cam_pitch, 0.0, delta * 8.0)
 
-		# Let camera stay in its original position from Corolla scene
-		#camera_pivot.rotation = Vector3.ZERO
+		# Normal camera follow
+		var car_yaw = vehicle.transform.basis.get_euler().y
+		var base_basis = Basis(Vector3.UP, car_yaw)
+		
+		# Apply freelook offsets
+		var offset_basis = Basis()
+		offset_basis = offset_basis.rotated(Vector3.UP, -cam_yaw)
+		offset_basis = offset_basis.rotated(Vector3.RIGHT, -cam_pitch)
+		camera_pivot.basis = base_basis * offset_basis
 
-	_check_camera_switch()
+		_check_camera_switch()
 
 func _check_camera_switch():
 	var speed = vehicle.linear_velocity.length()

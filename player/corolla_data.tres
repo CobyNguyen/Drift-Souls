@@ -4,4 +4,5 @@
 
 [resource]
 script = ExtResource("1_rnwyr")
+turn_strength = 300.0
 metadata/_custom_type_script = "uid://cq48ed8xkhaqj"

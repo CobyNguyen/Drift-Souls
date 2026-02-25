@@ -8,3 +8,17 @@ script = ExtResource("1_4flbx")
 vehicle_node_path = NodePath("Corolla")
 
 [node name="Corolla" parent="." unique_id=2079938094 instance=ExtResource("1_oul6g")]
+
+[node name="Wheel_001" parent="Corolla/FrontLeft" parent_id_path=PackedInt32Array(2079938094, 1880504136) index="0" unique_id=688744106]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
+
+[node name="Wheel_002" parent="Corolla/FrontRight" parent_id_path=PackedInt32Array(2079938094, 419719446) index="0" unique_id=470738791]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
+
+[node name="Wheel" parent="Corolla/BackLeft" parent_id_path=PackedInt32Array(2079938094, 551948571) index="0" unique_id=168779182]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
+
+[node name="Wheel_003" parent="Corolla/BackRight" parent_id_path=PackedInt32Array(2079938094, 1627908897) index="0" unique_id=1399876689]
+transform = Transform3D(0.45, 0, 0, 0, 0.45, 0, 0, 0, 0.45, 0, 0, 0)
+
+[editable path="Corolla"]
