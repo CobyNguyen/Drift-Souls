@@ -7,7 +7,6 @@ const DRIFT_GRIP = 1.0
 const NORMAL_GRIP = 3.5
 const DRIFT_STEER_MULT = 1.1
 
-var look_at
 var using_reverse := false
 var drift_charge := 0.0
 var drifting := false

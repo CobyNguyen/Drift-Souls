@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dvoua3p7rpktk"]
+
+[ext_resource type="Script" uid="uid://bd8uqgebh4eda" path="res://player/player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://50wwyak644rl" path="res://player/corolla.tscn" id="1_oul6g"]
+[ext_resource type="Resource" uid="uid://cg5rbg077uxw0" path="res://player/corolla_data.tres" id="3_g1dw6"]
+
+[node name="Player" type="Node3D" unique_id=2017492476]
+script = ExtResource("1_4flbx")
+
+[node name="Corolla" parent="." unique_id=2079938094 instance=ExtResource("1_oul6g")]
+vehicle_data = ExtResource("3_g1dw6")
+
+[editable path="Corolla"]

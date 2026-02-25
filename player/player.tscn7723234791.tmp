@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dvoua3p7rpktk"]
+
+[ext_resource type="Script" uid="uid://bd8uqgebh4eda" path="res://player/player.gd" id="1_4flbx"]
+[ext_resource type="PackedScene" uid="uid://50wwyak644rl" path="res://player/corolla.tscn" id="1_oul6g"]
+[ext_resource type="Resource" uid="uid://cg5rbg077uxw0" path="res://player/corolla_data.tres" id="3_g1dw6"]
+
+[node name="Player" type="Node3D" unique_id=2017492476]
+script = ExtResource("1_4flbx")
+
+[node name="Corolla" parent="." unique_id=2079938094 instance=ExtResource("1_oul6g")]
+mass = 50.0
+gravity_scale = 1.5
+vehicle_data = ExtResource("3_g1dw6")
+
+[node name="FrontLeft" parent="Corolla" index="3" unique_id=1880504136]
+wheel_friction_slip = 2.0
+
+[node name="FrontRight" parent="Corolla" index="4" unique_id=419719446]
+wheel_friction_slip = 2.0
+
+[node name="BackLeft" parent="Corolla" index="5" unique_id=551948571]
+wheel_friction_slip = 1.6
+
+[node name="BackRight" parent="Corolla" index="6" unique_id=1627908897]
+wheel_friction_slip = 1.6
+
+[editable path="Corolla"]
