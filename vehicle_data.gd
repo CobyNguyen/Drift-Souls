@@ -3,13 +3,14 @@ class_name VehicleData
 
 # Physics / movement
 @export var max_steer: float = 1.0
-@export var engine_power: float = 300
+@export var engine_power: float = 600
 @export var normal_grip: float = 2.0
 @export var drift_grip: float = 1.6
 @export var turn_strength: float = 500.0
 @export var drift_turn_strength: float = 800.0
-@export var top_speed: float = 40.0
+@export var top_speed: float = 100.0
 @export var boost_multiplier: float = 35.0
+@export var max_boost: int = 30
 
 # Camera / aiming
 @export var mouse_sens: float = 0.003

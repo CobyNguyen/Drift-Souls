@@ -504,14 +504,15 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6315g")
 
 [node name="Corolla" type="VehicleBody3D" unique_id=2079938094]
-mass = 100.0
+mass = 300.0
 gravity_scale = 4.0
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0.18452775, -0.28962994)
+center_of_mass = Vector3(0, 0.18452775, 1.0910822)
 script = ExtResource("1_2xomk")
 vehicle_data = ExtResource("2_ntmvs")
 
 [node name="CameraPivot" type="Node3D" parent="." unique_id=1895767586]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18452775, 0.6249478)
 top_level = true
 visible = false
 
@@ -621,11 +622,12 @@ shape = SubResource("ConvexPolygonShape3D_ntmvs")
 [node name="FrontLeft" type="VehicleWheel3D" parent="." unique_id=1880504136]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9480664, 0.17644434, 2.4198775)
 use_as_steering = true
-wheel_friction_slip = 3.0
-suspension_travel = 0.25
-suspension_stiffness = 200.0
-damping_compression = 4.0
-damping_relaxation = 6.0
+wheel_roll_influence = 0.5
+wheel_friction_slip = 2.2
+suspension_travel = 0.1
+suspension_stiffness = 180.0
+damping_compression = 3.0
+damping_relaxation = 4.0
 
 [node name="Wheel_001" type="MeshInstance3D" parent="FrontLeft" unique_id=688744106]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
@@ -634,11 +636,12 @@ mesh = SubResource("ArrayMesh_y75d8")
 [node name="FrontRight" type="VehicleWheel3D" parent="." unique_id=419719446]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9386416, 0.17644434, 2.4198775)
 use_as_steering = true
-wheel_friction_slip = 3.0
-suspension_travel = 0.25
-suspension_stiffness = 200.0
-damping_compression = 4.0
-damping_relaxation = 6.0
+wheel_roll_influence = 0.5
+wheel_friction_slip = 2.2
+suspension_travel = 0.1
+suspension_stiffness = 180.0
+damping_compression = 3.0
+damping_relaxation = 4.0
 
 [node name="Wheel_002" type="MeshInstance3D" parent="FrontRight" unique_id=470738791]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
@@ -647,12 +650,13 @@ mesh = SubResource("ArrayMesh_75rnw")
 [node name="BackLeft" type="VehicleWheel3D" parent="." unique_id=551948571]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9480664, 0.17644434, -0.7892097)
 use_as_traction = true
-wheel_roll_influence = 0.15
+wheel_roll_influence = 0.5
 wheel_rest_length = 0.35
-wheel_friction_slip = 2.0
+wheel_friction_slip = 1.2
+suspension_travel = 0.1
 suspension_stiffness = 180.0
-damping_compression = 4.0
-damping_relaxation = 6.0
+damping_compression = 3.0
+damping_relaxation = 4.0
 
 [node name="Wheel" type="MeshInstance3D" parent="BackLeft" unique_id=168779182]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
@@ -661,16 +665,17 @@ mesh = SubResource("ArrayMesh_sfn0v")
 [node name="BackRight" type="VehicleWheel3D" parent="." unique_id=1627908897]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9386416, 0.17644434, -0.7892097)
 use_as_traction = true
-wheel_roll_influence = 0.15
+wheel_roll_influence = 0.5
 wheel_rest_length = 0.35
-wheel_friction_slip = 2.0
+wheel_friction_slip = 1.2
+suspension_travel = 0.1
 suspension_stiffness = 180.0
-damping_compression = 4.0
-damping_relaxation = 6.0
+damping_compression = 3.0
+damping_relaxation = 4.0
 
 [node name="Wheel_003" type="MeshInstance3D" parent="BackRight" unique_id=1399876689]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 mesh = SubResource("ArrayMesh_aq1y4")
 
 [node name="CenterOfMass" type="Node3D" parent="." unique_id=220103977]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18452775, -0.28962994)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18452775, 1.0910822)

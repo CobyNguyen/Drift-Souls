@@ -40,7 +40,7 @@ var PITCH_MIN
 var TURN_STRENGTH = 500.0
 var DRIFT_TURN_STRENGTH = 800
 var MOUSE_SENS = .003
-
+var MAX_BOOST = 30
 
 
 func _ready():
@@ -71,6 +71,7 @@ func _ready():
 		MOUSE_SENS = data.mouse_sens
 		PITCH_MAX = data.pitch_max
 		PITCH_MIN = data.pitch_min
+		MAX_BOOST = data.max_boost
 
 
 	# --- Camera & UI ---
@@ -113,15 +114,19 @@ func _physics_process(delta: float) -> void:
 	crosshair.visible = aiming
 
 	# --- Steering ---
-	var speed_factor = clamp(speed / 20.0, 0.3, 1.0)
+	var speed_factor = clamp(1.2 - speed / 40.0, 0.4, 1.2)
 	var steer_amount = steer_input * MAX_STEER * speed_factor
 	var steer_speed = 4.0 if drifting else 2.5
 	vehicle.steering = move_toward(vehicle.steering, steer_amount, delta * steer_speed)
 
 	# --- Engine ---
-	var speed_ratio = clamp(speed / 40.0, 0.0, 1.0)
+	var speed_ratio = clamp(speed / TOP_SPEED, 0.0, 1.0)
 	var accel_multiplier = lerp(2.2, 1.0, speed_ratio)
+
 	vehicle.engine_force = accel_input * ENGINE_POWER * accel_multiplier
+
+	if speed > TOP_SPEED and accel_input > 0:
+		vehicle.engine_force = 0
 
 	# --- Drift grip & forces ---
 	#var forward = -vehicle.transform.basis.z.normalized()
@@ -134,19 +139,25 @@ func _physics_process(delta: float) -> void:
 	if drifting:
 		for wheel in [wheel_fl, wheel_fr, wheel_rl, wheel_rr]:
 			wheel.wheel_friction_slip = DRIFT_GRIP
+		vehicle.apply_torque(Vector3.UP * steer_input * DRIFT_TURN_STRENGTH * 0.6)
 		vehicle.apply_central_force(right * steer_input * DRIFT_TURN_STRENGTH)
 
 		vehicle.engine_force = accel_input * ENGINE_POWER * accel_multiplier
 		vehicle.engine_force *= 1.3
 		var sideways_speed = vehicle.linear_velocity.dot(right)
-		drift_charge += delta * abs(sideways_speed)
-		drift_charge = min(drift_charge, 30)
+		drift_charge += delta * abs(sideways_speed) * 2.5
+		drift_charge = min(drift_charge, MAX_BOOST)
 	else:
 		for wheel in [wheel_fl, wheel_fr, wheel_rl, wheel_rr]:
 			wheel.wheel_friction_slip = NORMAL_GRIP
 
 	# --- Drift boost ---
 	if Input.is_action_just_released("drift") and drift_charge > 1.0:
+		var forward = -vehicle.transform.basis.z.normalized()
+		var forward_speed = vehicle.linear_velocity.dot(forward)
+		# Re-apply forward momentum to prevent slowdown
+		
+		vehicle.apply_central_force(forward * forward_speed * 8.0)
 		var boost_dir = vehicle.linear_velocity.normalized()
 		boost_dir += right * steer_input * 0.5
 		boost_dir = boost_dir.normalized()
@@ -185,15 +196,12 @@ func _physics_process(delta: float) -> void:
 		cam_yaw = lerp(cam_yaw, 0.0, delta * 8.0)
 		cam_pitch = lerp(cam_pitch, 0.0, delta * 8.0)
 
-		# Normal camera follow
+		# --- Smooth camera follow rotation ---
 		var car_yaw = vehicle.transform.basis.get_euler().y
-		var base_basis = Basis(Vector3.UP, car_yaw)
-		
-		# Apply freelook offsets
-		var offset_basis = Basis()
-		offset_basis = offset_basis.rotated(Vector3.UP, -cam_yaw)
-		offset_basis = offset_basis.rotated(Vector3.RIGHT, -cam_pitch)
-		camera_pivot.basis = base_basis * offset_basis
+		var target_basis = Basis(Vector3.UP, car_yaw)
+
+		# Smooth rotation 
+		camera_pivot.basis = camera_pivot.basis.slerp(target_basis, delta * 5.0)
 
 		_check_camera_switch()
 

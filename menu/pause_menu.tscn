@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://c37rhnh5m5q5d"]
+
+[ext_resource type="Theme" uid="uid://3psca8jqeo4a" path="res://menu/menu.theme" id="1_inj1j"]
+[ext_resource type="Script" uid="uid://d3myypyfy33yf" path="res://menu/pause_menu.gd" id="1_vy7sn"]
+
+[node name="PauseMenu" type="Control" unique_id=1523676115]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_behavior_recursive = 2
+script = ExtResource("1_vy7sn")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=1212516915]
+process_mode = 3
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.5
+offset_top = -104.5
+offset_right = 109.5
+offset_bottom = 104.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=531005406]
+process_mode = 3
+custom_minimum_size = Vector2(300, 200)
+layout_mode = 2
+theme = ExtResource("1_inj1j")
+
+[node name="Resume" type="Button" parent="CenterContainer/VBoxContainer" unique_id=746126100]
+process_mode = 3
+layout_mode = 2
+text = "Resume"
+
+[node name="Restart" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1095005374]
+process_mode = 3
+layout_mode = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1938180119]
+process_mode = 3
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
