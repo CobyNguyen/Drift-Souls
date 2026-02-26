@@ -20,6 +20,11 @@ Drift Souls is a racing game with combat inspired by Dark Souls. Players race ag
 - Source: [https://www.carrois.com/share/](https://www.carrois.com/share/)
 - License File: `assets/fonts/Share-OFL.txt`
 
+### Alte Din 1451 mittelschrift
+- Author: Ludwig Goller
+- License: [SIL Open Font License (OFL)](http://scripts.sil.org/OFL)
+- Source: [https://www.1001fonts.com/alte-din-1451-mittelschrift-font.html](https://www.1001fonts.com/alte-din-1451-mittelschrift-font.html)
+
 ## 3D Models
 
 ### Nissan GTR
@@ -27,8 +32,7 @@ Drift Souls is a racing game with combat inspired by Dark Souls. Players race ag
 - License: [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/)
 - Source: [Poly Pizza](https://poly.pizza/m/a_HKCtYAv2W)
 
-### Kenney City Kit Assets
-- Assets: Roads, Commercial Buildings
+### Kenney Crosshair UI Assets
 - License: [Kenney Assets](https://kenney.nl/assets) (CC0 or CC-BY)
 - Source: [Kenney.nl](https://kenney.nl/assets)
 
