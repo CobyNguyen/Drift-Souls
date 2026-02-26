@@ -12,7 +12,7 @@ var crosshair
 var crosshair_default_pos
 var speed_bar
 var boost_bar
-var look_at
+#var look_at
 
 # Wheel references
 var wheel_fl
@@ -45,7 +45,7 @@ var MOUSE_SENS = .003
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	look_at = global_position
+	#look_at = global_position
 	# --- Get vehicle dynamically ---
 	vehicle = get_node(vehicle_node_path)
 	if vehicle == null:
@@ -154,6 +154,7 @@ func _physics_process(delta: float) -> void:
 			boost_dir = -vehicle.transform.basis.z
 		boost_dir.y = 0
 		boost_dir = boost_dir.normalized()
+		vehicle.apply_central_impulse(boost_dir * drift_charge * BOOST_MULT)
 		print("BOOST!", drift_charge)
 		drift_charge = 0.0
 

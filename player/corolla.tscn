@@ -623,7 +623,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9480664, 0.17644434, 2.4198
 use_as_steering = true
 wheel_friction_slip = 3.0
 suspension_travel = 0.25
-suspension_stiffness = 120.0
+suspension_stiffness = 200.0
 damping_compression = 4.0
 damping_relaxation = 6.0
 
@@ -636,7 +636,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9386416, 0.17644434, 2.419
 use_as_steering = true
 wheel_friction_slip = 3.0
 suspension_travel = 0.25
-suspension_stiffness = 120.0
+suspension_stiffness = 200.0
 damping_compression = 4.0
 damping_relaxation = 6.0
 
@@ -650,7 +650,7 @@ use_as_traction = true
 wheel_roll_influence = 0.15
 wheel_rest_length = 0.35
 wheel_friction_slip = 2.0
-suspension_stiffness = 90.0
+suspension_stiffness = 180.0
 damping_compression = 4.0
 damping_relaxation = 6.0
 
@@ -664,7 +664,7 @@ use_as_traction = true
 wheel_roll_influence = 0.15
 wheel_rest_length = 0.35
 wheel_friction_slip = 2.0
-suspension_stiffness = 90.0
+suspension_stiffness = 180.0
 damping_compression = 4.0
 damping_relaxation = 6.0
 
