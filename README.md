@@ -20,7 +20,7 @@ Drift Souls is a racing game with combat inspired by Dark Souls. Players race ag
 - Source: [https://www.carrois.com/share/](https://www.carrois.com/share/)
 - License File: `assets/fonts/Share-OFL.txt`
 
-### Alte Din 1451 mittelschrift
+### Alte Din 1451 Mittelschrift
 - Author: Ludwig Goller
 - License: [SIL Open Font License (OFL)](http://scripts.sil.org/OFL)
 - Source: [https://www.1001fonts.com/alte-din-1451-mittelschrift-font.html](https://www.1001fonts.com/alte-din-1451-mittelschrift-font.html)
@@ -39,3 +39,4 @@ Drift Souls is a racing game with combat inspired by Dark Souls. Players race ag
 ## Engine
 
 - Developed in [Godot Engine](https://godotengine.org) (MIT License)
+- Models created in [Blender](https://www.blender.org/) (GNU GPL Version 3)
