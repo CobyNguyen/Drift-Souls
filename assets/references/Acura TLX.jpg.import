@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccn2xr8mvhlvr"
-path="res://.godot/imported/Acura TLX.jpg-75e2aa2ce3607dcd178359c685cab031.ctex"
+uid="uid://cf2ybrvtfe8xy"
+path="res://.godot/imported/Acura TLX.jpg-72972d6f5055f9c6727bdc387e539fa1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Acura TLX.jpg"
-dest_files=["res://.godot/imported/Acura TLX.jpg-75e2aa2ce3607dcd178359c685cab031.ctex"]
+source_file="res://assets/references/Acura TLX.jpg"
+dest_files=["res://.godot/imported/Acura TLX.jpg-72972d6f5055f9c6727bdc387e539fa1.ctex"]
 
 [params]
 

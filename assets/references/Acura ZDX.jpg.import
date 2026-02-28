@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2a3pdgb2yy5o"
-path="res://.godot/imported/Toyota Corolla DX E70.jpg-445cdad576664e994cf56d606083a168.ctex"
+uid="uid://dm2naejebpg7e"
+path="res://.godot/imported/Acura ZDX.jpg-9bda09d1e5447fa48e017f3181de6f12.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Toyota Corolla DX E70.jpg"
-dest_files=["res://.godot/imported/Toyota Corolla DX E70.jpg-445cdad576664e994cf56d606083a168.ctex"]
+source_file="res://assets/references/Acura ZDX.jpg"
+dest_files=["res://.godot/imported/Acura ZDX.jpg-9bda09d1e5447fa48e017f3181de6f12.ctex"]
 
 [params]
 

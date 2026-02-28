@@ -14,10 +14,11 @@ func pause():
 	visible = true
 
 func testEsc():
-	if Input.is_action_just_pressed("ui_cancel") and !get_tree().paused:
-		pause()
-	elif Input.is_action_just_pressed("ui_cancel") and get_tree().paused:
-		resume()
+	if Input.is_action_just_pressed("ui_cancel"):
+		if get_tree().paused:
+			resume()
+		else:
+			pause()
 
 
 func _ready() -> void:
@@ -26,7 +27,8 @@ func _ready() -> void:
 
 func _process(delta):
 	testEsc()
-
+	if Input.is_action_just_pressed("Restart scene"):
+		get_tree().reload_current_scene()
 
 func _on_options_pressed():
 	pause()
@@ -35,6 +37,7 @@ func _on_options_pressed():
 
 
 func _on_restart_pressed() -> void:
+	get_tree().paused = false
 	get_tree().reload_current_scene()
 
 

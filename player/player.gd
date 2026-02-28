@@ -28,6 +28,9 @@ var cam_yaw := 0.0
 var cam_pitch := -10.0
 var using_reverse := false
 
+
+var lance
+
 # vehicle_data
 var BOOST_MULT = 35.0
 var TOP_SPEED = 40
@@ -44,10 +47,18 @@ var MAX_BOOST = 30
 
 
 func _ready():
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#look_at = global_position
-	# --- Get vehicle dynamically ---
+	
+	#Weapons
 	vehicle = get_node(vehicle_node_path)
+
+	lance = vehicle.get_node("Lance")
+	
+	
+	
+	# --- Get vehicle dynamically ---
 	if vehicle == null:
 		push_error("Vehicle node not found at path: %s" % vehicle_node_path)
 		return
@@ -188,6 +199,21 @@ func _physics_process(delta: float) -> void:
 		var y_offset = clamp(cam_pitch / deg_to_rad(45) * max_offset, -max_offset, max_offset)
 		var target_pos = crosshair_default_pos + Vector2(x_offset, -y_offset)
 		crosshair.position = crosshair.position.lerp(target_pos, 0.2)
+		
+		#Weapon movement
+		var mouse_pos = get_viewport().get_mouse_position()
+		var ray_origin = camera_3d.project_ray_origin(mouse_pos)
+		var ray_dir = camera_3d.project_ray_normal(mouse_pos)
+		
+		var ray_end = ray_origin + ray_dir * 2000.0
+		
+		var lance_pos = ray_end
+		
+		# Only aim horizontally
+		lance_pos.y = lance.global_position.y
+		
+		lance.look_at(lance_pos, Vector3.UP)
+		
 	else:
 		# Return crosshair to node's original position
 		crosshair.position = crosshair.position.lerp(crosshair_default_pos, 0.2)
@@ -199,10 +225,11 @@ func _physics_process(delta: float) -> void:
 		# --- Smooth camera follow rotation ---
 		var car_yaw = vehicle.transform.basis.get_euler().y
 		var target_basis = Basis(Vector3.UP, car_yaw)
-
+			
 		# Smooth rotation 
 		camera_pivot.basis = camera_pivot.basis.slerp(target_basis, delta * 5.0)
-
+		
+		lance.visible = false
 		_check_camera_switch()
 
 func _check_camera_switch():
@@ -228,3 +255,7 @@ func _input(event):
 		cam_pitch -= event.relative.y * MOUSE_SENS
 		cam_yaw = clamp(cam_yaw, deg_to_rad(-120), deg_to_rad(120))
 		cam_pitch = clamp(cam_pitch, PITCH_MIN, PITCH_MAX)
+		lance.visible = true
+	if event.is_action_pressed("fire"):
+		lance.thrust()
+		

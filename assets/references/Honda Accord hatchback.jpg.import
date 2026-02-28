@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjvc6yulpkv3a"
-path="res://.godot/imported/Honda Accord hatchback.jpg-108bd6d180ae80128d80c7805bc1eacf.ctex"
+uid="uid://d313r1103g60c"
+path="res://.godot/imported/Honda Accord hatchback.jpg-e0ebd7ec5cac926f7246c0360fd9ddfb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Honda Accord hatchback.jpg"
-dest_files=["res://.godot/imported/Honda Accord hatchback.jpg-108bd6d180ae80128d80c7805bc1eacf.ctex"]
+source_file="res://assets/references/Honda Accord hatchback.jpg"
+dest_files=["res://.godot/imported/Honda Accord hatchback.jpg-e0ebd7ec5cac926f7246c0360fd9ddfb.ctex"]
 
 [params]
 

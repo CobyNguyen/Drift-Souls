@@ -4,6 +4,7 @@
 [ext_resource type="Theme" uid="uid://3psca8jqeo4a" path="res://menu/menu.theme" id="1_dsd1v"]
 [ext_resource type="Resource" uid="uid://cg5rbg077uxw0" path="res://player/corolla_data.tres" id="2_ntmvs"]
 [ext_resource type="Texture2D" uid="uid://cge5wyiokasnj" path="res://assets/kenney_crosshairPack/PNG/Outline/crosshair022.png" id="3_2xomk"]
+[ext_resource type="PackedScene" uid="uid://cohbj1nh55kn" path="res://assets/weapons/lance.tscn" id="5_6x1cn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ntmvs"]
 bg_color = Color(0.9411765, 0.09803922, 0.18431373, 1)
@@ -679,3 +680,9 @@ mesh = SubResource("ArrayMesh_aq1y4")
 
 [node name="CenterOfMass" type="Node3D" parent="." unique_id=220103977]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.18452775, 1.0910822)
+
+[node name="Lance" parent="." unique_id=1809636589 instance=ExtResource("5_6x1cn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3851175, 0.59542894, 2.7063932)
+visible = false
+
+[editable path="Lance"]
