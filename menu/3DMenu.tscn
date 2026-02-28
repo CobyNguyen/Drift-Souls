@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://dhkjdaqxy5uiu" path="res://menu/menuPlayer.gd" id="4_70617"]
 [ext_resource type="Script" uid="uid://bvnbhxpeinpok" path="res://player/corolla.gd" id="4_tb5i3"]
 [ext_resource type="Resource" uid="uid://cg5rbg077uxw0" path="res://player/corolla_data.tres" id="5_70617"]
+[ext_resource type="Texture2D" uid="uid://60su4degjnyp" path="res://menu/logo-removebg-preview.png" id="6_70617"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tb5i3"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -987,13 +988,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4305115e-06, 0)
 
 [node name="Menu" type="Control" parent="." unique_id=119714346]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 67.0
-offset_top = 399.0
-offset_right = -1085.0
-offset_bottom = -249.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_70617")
@@ -1004,10 +1003,10 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -6.0
-offset_top = -57.0
-offset_right = 213.0
-offset_bottom = 152.0
+offset_left = -509.0
+offset_top = 62.0
+offset_right = -209.0
+offset_bottom = 271.0
 grow_vertical = 0
 theme = ExtResource("1_70617")
 
@@ -1037,16 +1036,34 @@ text = "Quit"
 [node name="Label" type="Label" parent="Menu" unique_id=794660166]
 custom_minimum_size = Vector2(512, 32)
 layout_mode = 0
-offset_left = 501.0
-offset_top = -22.0
-offset_right = 1013.0
-offset_bottom = 178.0
+offset_left = 56.0
+offset_top = 124.0
+offset_right = 568.0
+offset_bottom = 324.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/font_size = 22
 text = "鑑於對人權的無視和侮蔑已發展為野蠻暴行，這些暴行沾污了人類的良心，而一個人人享有言論和信仰自由並免予恐懼和匱乏的世界的來臨，已被宣布為普通人民的最高願"
 autowrap_mode = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="Menu" unique_id=921866013]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -369.0
+offset_top = -288.0
+offset_right = 369.0
+offset_bottom = -83.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Logo" type="TextureRect" parent="Menu/CenterContainer" unique_id=788061930]
+layout_mode = 2
+texture = ExtResource("6_70617")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=241223707]
 transform = Transform3D(-0.09608002, 0.17210187, -0.98038244, -0.021315627, 0.9843575, 0.17488867, 0.99514544, 0.037700772, -0.09090862, -2.3897004, 2.3880665, -0.14667913)

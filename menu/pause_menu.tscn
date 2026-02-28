@@ -2,6 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://3psca8jqeo4a" path="res://menu/menu.theme" id="1_inj1j"]
 [ext_resource type="Script" uid="uid://d3myypyfy33yf" path="res://menu/pause_menu.gd" id="1_vy7sn"]
+[ext_resource type="Texture2D" uid="uid://60su4degjnyp" path="res://menu/logo-removebg-preview.png" id="3_lgp46"]
 
 [node name="PauseMenu" type="Control" unique_id=1523676115]
 process_mode = 3
@@ -49,6 +50,14 @@ text = "Restart"
 process_mode = 3
 layout_mode = 2
 text = "Quit"
+
+[node name="Logo" type="TextureRect" parent="." unique_id=1124142564]
+layout_mode = 0
+offset_left = 207.0
+offset_top = 41.0
+offset_right = 945.0
+offset_bottom = 246.0
+texture = ExtResource("3_lgp46")
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
