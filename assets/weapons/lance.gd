@@ -5,9 +5,11 @@ extends Node3D
 @export var max_force := 6000.0
 @export var max_charge_time := 1.5
 @export var active_time := 0.2
+@export var charge_extension := 2.0  # How far the lance moves forward while charging
 
 var charging := false
 var charge_time := 0.0
+var original_position := Vector3.ZERO
 
 var vehicle: VehicleBody3D
 var thrusting := false
@@ -17,11 +19,16 @@ var timer := 0.0
 
 func _ready():
 	hitbox.monitoring = false
+	original_position = transform.origin
 
 func _physics_process(delta):
 	if charging:
 		charge_time += delta
 		charge_time = min(charge_time, max_charge_time)
+		var charge_ratio = charge_time / max_charge_time
+		var forward = transform.basis.z.normalized()
+		transform.origin = original_position + forward * charge_extension * charge_ratio
+
 		
 	if thrusting:
 		timer -= delta
@@ -47,6 +54,8 @@ func release_charge():
 		
 	if not charging:
 		return
+	
+	transform.origin = original_position
 	
 	charging = false
 	
