@@ -33,9 +33,9 @@ var lance
 
 # vehicle_data
 var BOOST_MULT = 35.0
-var TOP_SPEED = 40
+var TOP_SPEED = 90
 var MAX_STEER = 1.0
-var ENGINE_POWER = 300
+var ENGINE_POWER = 600
 var DRIFT_GRIP = 1.6
 var NORMAL_GRIP = 2.0
 var PITCH_MAX

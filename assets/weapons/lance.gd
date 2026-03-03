@@ -1,11 +1,10 @@
 extends Node3D
 
-
 @export var min_force := 500.0
 @export var max_force := 6000.0
 @export var max_charge_time := 1.5
 @export var active_time := 0.2
-@export var charge_extension := 2.0  # How far the lance moves forward while charging
+@export var charge_extension := 2.0 
 
 var charging := false
 var charge_time := 0.0
