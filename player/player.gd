@@ -48,13 +48,16 @@ var MAX_BOOST = 30
 
 func _ready():
 	
+	
+	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#look_at = global_position
 	
 	#Weapons
 	vehicle = get_node(vehicle_node_path)
 
-	lance = vehicle.get_node("Lance")
+	lance = vehicle.find_child("Lance", true, false)
+	lance.vehicle = vehicle
 	
 	
 	
@@ -256,6 +259,10 @@ func _input(event):
 		cam_yaw = clamp(cam_yaw, deg_to_rad(-120), deg_to_rad(120))
 		cam_pitch = clamp(cam_pitch, PITCH_MIN, PITCH_MAX)
 		lance.visible = true
+		
 	if event.is_action_pressed("fire"):
-		lance.thrust()
+		lance.start_charge()
+
+	if event.is_action_released("fire"):
+		lance.release_charge()
 		
