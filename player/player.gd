@@ -260,9 +260,9 @@ func _input(event):
 		cam_pitch = clamp(cam_pitch, PITCH_MIN, PITCH_MAX)
 		lance.visible = true
 		
-	if event.is_action_pressed("fire"):
+	if event.is_action_pressed("fire") and aiming:
 		lance.start_charge()
 
-	if event.is_action_released("fire"):
+	if event.is_action_released("fire") and aiming:
 		lance.release_charge()
 		

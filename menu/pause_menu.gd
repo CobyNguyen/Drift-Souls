@@ -23,7 +23,8 @@ func testEsc():
 
 func _ready() -> void:
 	visible = false
-	
+
+
 
 func _process(delta):
 	testEsc()
@@ -47,3 +48,10 @@ func _on_quit_pressed() -> void:
 
 func _on_resume_pressed() -> void:
 	resume()
+
+
+func _on_menu_pressed() -> void:
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://menu/3DMenu.tscn")
+	
+	

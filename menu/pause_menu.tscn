@@ -23,10 +23,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -109.5
-offset_top = -104.5
-offset_right = 109.5
-offset_bottom = 104.5
+offset_left = -150.0
+offset_top = -124.0
+offset_right = 150.0
+offset_bottom = 156.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -41,6 +41,11 @@ process_mode = 3
 layout_mode = 2
 text = "Resume"
 
+[node name="Menu" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1520220142]
+process_mode = 3
+layout_mode = 2
+text = "Main Menu"
+
 [node name="Restart" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1095005374]
 process_mode = 3
 layout_mode = 2
@@ -54,11 +59,12 @@ text = "Quit"
 [node name="Logo" type="TextureRect" parent="." unique_id=1124142564]
 layout_mode = 0
 offset_left = 207.0
-offset_top = 41.0
+offset_top = 5.0
 offset_right = 945.0
-offset_bottom = 246.0
+offset_bottom = 210.0
 texture = ExtResource("3_lgp46")
 
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Menu" to="." method="_on_menu_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Restart" to="." method="_on_restart_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
